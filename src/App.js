@@ -1,11 +1,11 @@
 import React from 'react'
-import { LoginComponent } from './component/LoginComponet';
+import { LandingPage } from './component/LandingPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 export const App = () => (
     <Router>
     <Switch>
-      <Route exact path='/' component={LoginComponent} />
+      <Route exact path='/' component={LandingPage} />
     </Switch>
   </Router>
 )

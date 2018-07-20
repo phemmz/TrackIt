@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/phemmz/TrackIt#readme",
   "dependencies": {
-    "react": "^16.4.1",
     "axios": "^0.18.0",
     "boom": "^7.2.0",
     "classnames": "^2.2.6",
@@ -36,8 +35,9 @@
     "html-webpack-plugin": "^3.0.7",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
-    "pre-commit": "^1.2.2",
     "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-bootstrap": "^0.32.1",
     "react-date-picker": "^6.10.4",
     "react-day-picker": "^7.1.10",
     "react-dom": "^16.4.1",
