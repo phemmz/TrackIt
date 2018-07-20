@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: whitesmoke;
 }
 
 .dasboard__container {
@@ -46,4 +47,15 @@ body {
 .upload__pfi__section {
   display: flex;
   margin: 2rem 0 0 2rem;
+}
+
+.logo {
+    width: 100%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+
+    img{
+        width: 130%;
+        padding: auto ;
+    }
 }
