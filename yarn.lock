@@ -1442,6 +1442,13 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
 
+cloudinary@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/cloudinary/-/cloudinary-1.11.0.tgz#3f6b21961d17859f271738f452427d9899591ff1"
+  dependencies:
+    lodash "^4.17.4"
+    q "^1.5.1"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2824,6 +2831,10 @@ fs-minipass@^1.2.5:
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+
+fs@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
 
 fsevents@^1.2.2:
   version "1.2.4"
@@ -5201,7 +5212,7 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
-q@^1.1.2:
+q@^1.1.2, q@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
 
@@ -5452,6 +5463,13 @@ react-toastify@^4.1.0:
     classnames "^2.2.5"
     prop-types "^15.6.0"
     react-transition-group "^2.2.1"
+
+react-tooltip@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.6.1.tgz#2ca993baa50d7e0271b8d13c6024445a883842eb"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
 
 react-transition-group@^2.0.0, react-transition-group@^2.2.0, react-transition-group@^2.2.1:
   version "2.4.0"

@@ -7,6 +7,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { NODE_ENV } = process.env;
 const parseVariables = dotEnv.config().parsed;
 
+const environmentVariables = {};
+
+for (let envVar in parseVariables) {
+  environmentVariables[envVar] = JSON.stringify(parseVariables[envVar]);
+}
+
 const outputPath = path.join(__dirname, "dist");
 const port = process.env.PORT || 3000;
 
@@ -66,9 +72,12 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": {
-        ...NODE_ENV
+        ...environmentVariables
       }
     }),
     new ExtractTextPlugin("bundle.css")
   ],
+  node: {
+    fs: 'empty'
+  }
 };

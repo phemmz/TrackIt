@@ -1,7 +1,23 @@
 import React from 'react';
+
+import * as cloudinary from 'cloudinary';
 const PDFJS = require('pdfjs-dist');
+import ReactTooltip from 'react-tooltip'
 
 export default class Dashboard extends React.Component {
+
+  state = {
+    errors: {},
+  };
+
+  constructor(props) {
+    super(props);
+    cloudinary.config({
+      api_key: process.env.CLOUDINARY_KEY,
+      api_secret: process.env.CLOUDINARY_SECRET,
+      cloud_name: process.env.CLOUDINARY_NAME,
+    });
+  }
 
   callbackAllDone = (fullText) => {
     console.log(fullText, ' fuuuuuullltext')
@@ -15,13 +31,13 @@ export default class Dashboard extends React.Component {
     let complete = 0;
 
     console.log( data  instanceof ArrayBuffer  || typeof data == 'string' );
-    PDFJS.getDocument("./BOHYUNGPARK.pdf").then(function(pdf) {
+    PDFJS.getDocument(data).then(function(pdf) {
       var div = document.getElementById('viewer');
       var total = pdf.numPages;
       callbackPageDone(0, total);
       var layers = {};
       
-      for (i = 1; i <= total; i++) {
+      for (let i = 1; i <= total; i++) {
         pdf.getPage(i).then(function(page) {
           var n = page.pageNumber;
 
@@ -67,21 +83,69 @@ export default class Dashboard extends React.Component {
   }
 
   handleFileUpload = (event) => {
-    console.log(event.target.files, ' fffiifle')
-    this.pdfToText(event.target.files, this.callbackPageDone, this.callbackAllDone);
+    // this.pdfToText(event.target.files, this.callbackPageDone, this.callbackAllDone);
+    let fileType = event.target.files[0].type.split('/').pop().toLowerCase();
+    if (fileType !== 'pdf') {
+      return this.setState({
+        errors: {...this.state.errors, fileError: 'File type is not supported'}
+      });
+    }
+    
+    const reader = new FileReader();
+    // reader.readAsArrayBuffer(event.target.files[0]);
+    reader.readAsDataURL(event.target.files[0]);
+
+    reader.onloadend = (result) => {
+      console.log(result, ' rree')
+      // this.pdfToText(result.currentTarget.result, this.callbackPageDone, this.callbackAllDone);
+      cloudinary.v2.uploader.upload(result.target.result, (error, response) => {
+        if (!error) {
+          console.log(response)
+          // this.setState({
+          //   filePublicId: response.public_id,
+          //   fileUrl: response.secure_url,
+          //   showFile: true,
+          //   uploading: false,
+          // });
+          // this.handleCallback();
+          return true;
+        }
+
+        this.setState({
+          message: error.message,
+          showMessage: true,
+          uploading: false,
+        });
+        return false;
+      });
+    }
   }
 
   handleInputChange = () => {
     console.log('hhhh')
   }
   render() {
+    const { pathname } = this.props.location;
+
     return (
       <div className="dasboard__container">
+        <ReactTooltip />
         <div className="side__nav">
-          <a>Logo</a>
-          <a>Add Shipment</a>
-          <a>View All Shipments</a>
-          <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+          <a>
+            <img height="50px" width="50px" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Unilever.svg/1200px-Unilever.svg.png" />
+          </a>
+          <hr />
+          <div>
+            <a data-tip="Add Shipment"><i className="far fa-plus-square" style={pathname === '/dashboard' ? { color: 'blue' } : { color: 'grey'}}></i></a>
+          </div>
+          <hr />
+          <div>
+            <a data-tip="View All Shipments"><i className="fas fa-shipping-fast" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></a>
+          </div>
+          <hr />
+          <div>
+            <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+          </div>
         </div>
         <div className="add__shipment__card">
           <h4 className="text-center">Add New Shipment</h4>
