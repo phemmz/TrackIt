@@ -157,29 +157,31 @@ export default class Dashboard extends React.Component {
                   className="custom-file-input upload__pfi__section"
                   id="pfiFile"
                   onChange={this.handleFileUpload}
+                  required
                 />
                 <label className="custom-file-label" htmlFor="customFile">Upload PFI</label>
               </div>
               <div className="form-group">
                 <label htmlFor="pfiQuantity">Quantity</label>
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
                   id="pfiQuantity"
                   onChange={this.handleInputChange}
+                  required
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="pfiCost">Cost</label>
-                <input type="password" className="form-control" id="pfiCost" />
+                <input type="text" className="form-control" id="pfiCost" required />
               </div>
               <div className="form-group">
                 <label htmlFor="hsCode">HS Code</label>
-                <input type="password" className="form-control" id="hsCode" />
+                <input type="text" className="form-control" id="hsCode" required />
               </div>
               <div className="form-group">
                 <label htmlFor="itemsDetails">Items Details</label>
-                <input type="password" className="form-control" id="itemsDetails" />
+                <input type="text" className="form-control" id="itemsDetails" required />
               </div>
               <div className="form-group">
                 <label htmlFor="materialType">Type</label>
