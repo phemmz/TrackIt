@@ -1,8 +1,11 @@
 import React from 'react';
 
 import * as cloudinary from 'cloudinary';
+import { Link } from 'react-router-dom';
 const PDFJS = require('pdfjs-dist');
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
+
+import SideNav from './SideNav'
 
 export default class Dashboard extends React.Component {
 
@@ -131,16 +134,16 @@ export default class Dashboard extends React.Component {
       <div className="dasboard__container">
         <ReactTooltip />
         <div className="side__nav">
-          <a>
+          <Link to="/">
             <img height="50px" width="50px" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Unilever.svg/1200px-Unilever.svg.png" />
-          </a>
+          </Link>
           <hr />
           <div>
-            <a data-tip="Add Shipment"><i className="far fa-plus-square" style={pathname === '/dashboard' ? { color: 'blue' } : { color: 'grey'}}></i></a>
+            <Link to="/dashboard" data-tip="Add Shipment"><i className="far fa-plus-square" style={pathname === '/dashboard' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
           </div>
           <hr />
           <div>
-            <a data-tip="View All Shipments"><i className="fas fa-shipping-fast" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></a>
+            <Link to="/shipments" data-tip="View All Shipments"><i className="fas fa-shipping-fast" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
           </div>
           <hr />
           <div>
