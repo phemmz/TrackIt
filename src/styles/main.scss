@@ -79,3 +79,16 @@ body {
     margin-top: 0.5rem;
   }
 }
+
+.landing {
+  padding-top: 20vh;
+}
+
+.center {
+  text-align: center;
+}
+@media (min-width: 768px){
+  .landing {
+    padding-top: 33vh;
+  }
+}
