@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import logo from '../assert/unilever-logo.png';
-import { Link } from 'react-router-dom'
+import Axios from 'axios';
 import { LoginComponent } from './LoginComponent';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/userAction'
@@ -20,9 +20,16 @@ export class LandingPage extends Component {
         this.setState({ [e.target.name]: e.target.value });
       }
     onhandleSubmit = () => {
-        this.props.loginUser(this.state);
-        if(true)
-        window.location.href ='/dashboard'
+        Axios.post('https://unilever-track-it.herokuapp.com/api/v1/login', this.state)
+        .then((response)=>{
+           if(response.data.auth_token){
+            localStorage.setItem('auth_token', response.data.auth_token)
+            window.location.href ='/dashboard'   
+           }
+        }).catch((error)=>{
+            return error;
+        })
+      
     }
     render(){
         return(
@@ -60,6 +67,5 @@ export class LandingPage extends Component {
     </div>
     )
     }
-  
 }
 export default connect(null, {loginUser})(LandingPage);
