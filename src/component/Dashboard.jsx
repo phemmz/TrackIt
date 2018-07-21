@@ -1,15 +1,14 @@
 import React from 'react';
-import Axios from 'axios';
-
 import * as cloudinary from 'cloudinary';
 import { Link } from 'react-router-dom';
-const PDFJS = require('pdfjs-dist');
 import ReactTooltip from 'react-tooltip';
+
 import decodeToken from '../helper/decodeToken';
-
-import SideNav from './SideNav'
-
 import { postPfiForm } from '../Helpers/handleApiRequest';
+const PDFJS = require('pdfjs-dist');
+
+
+
 
 export default class Dashboard extends React.Component {
 
@@ -60,20 +59,19 @@ export default class Dashboard extends React.Component {
   }
 
   callbackAllDone = (fullText) => {
-    console.log(fullText, ' fuuuuuullltext')
   }
 
   handleSubmitData = async (e) => {
     e.preventDefault();
-    console.log(this.state, 'eee', e)
-    const { item_detail, materialType, quantity, cost, hs_code, supplier_name, pfi_number, hscode_percentage, unit_cost, fileUrl }
-      = this.state;
+
+    const { item_detail, materialType, quantity, cost,
+      hs_code, supplier_name, pfi_number, hscode_percentage, unit_cost, fileUrl
+    } = this.state;
 
     const pfiForm = {
       item_detail,
       type: materialType,
-      // url: fileUrl,
-      url: 'fileUrl',
+      url: fileUrl,
       quantity,
       cost,
       hs_code,
@@ -83,18 +81,15 @@ export default class Dashboard extends React.Component {
       unit_cost
     };
 
-    const response = await postPfiForm(pfiForm);
-    console.log(response, ' resssss')
+    await postPfiForm(pfiForm);
   }
 
   callbackPageDone = (complete, total) => {
-    console.log(complete, ' complete', total, ' total');
   }
 
   pdfToText = (data, callbackPageDone, callbackAllDone) => {
     let complete = 0;
 
-    console.log( data  instanceof ArrayBuffer  || typeof data == 'string' );
     PDFJS.getDocument(data).then(function(pdf) {
       var div = document.getElementById('viewer');
       var total = pdf.numPages;
@@ -140,14 +135,13 @@ export default class Dashboard extends React.Component {
                 callbackAllDone(full_text);
               }, 1000);              
             }
-          }); // end  of page.getTextContent().then
-        }) // end of page.then
-      } // of for
+          });
+        });
+      }
     });
   }
 
   handleFileUpload = (event) => {
-    // this.pdfToText(event.target.files, this.callbackPageDone, this.callbackAllDone);
     let fileType = event.target.files[0].type.split('/').pop().toLowerCase();
     if (fileType !== 'pdf') {
       return this.setState({
@@ -156,34 +150,25 @@ export default class Dashboard extends React.Component {
     }
     
     const reader = new FileReader();
-    // reader.readAsArrayBuffer(event.target.files[0]);
+
     reader.readAsDataURL(event.target.files[0]);
 
     reader.onloadend = (result) => {
-      console.log(result, ' rree')
-      // this.pdfToText(result.currentTarget.result, this.callbackPageDone, this.callbackAllDone);
       cloudinary.v2.uploader.upload(result.target.result, (error, response) => {
         if (!error) {
-          console.log(response)
           this.setState({
             fileUrl: response.secure_url,
           });
-          // this.handleCallback();
+
           return true;
         }
 
-        // this.setState({
-        //   message: error.message,
-        //   showMessage: true,
-        //   uploading: false,
-        // });
         return false;
       });
     }
   }
 
   handleInputChange = () => {
-    console.log('hhhh')
   }
 
   onChange =(name, e) => {
@@ -198,7 +183,6 @@ export default class Dashboard extends React.Component {
       });
     } else if (name === 'cost') {
       let unitCost = parseInt(this.state.quantity, 10) / parseInt(this.state.cost, 10);
-      console.log(this.state.quantity, ' uuuuu', typeof unitCost)
 
       this.setState({
         unit: unitCost,
@@ -209,7 +193,6 @@ export default class Dashboard extends React.Component {
   }
 
   getSelectValue = (e) => {
-    console.log(e, ' eeee')
   }  
 
   render() {
@@ -300,7 +283,8 @@ export default class Dashboard extends React.Component {
                   min="0"
                   value={this.state.cost}
                   onChange= {(value) => this.onChange('cost', value)}
-                  required />
+                  required
+                />
               </div>
               <div className="form-group col-sm-6">
                 <label htmlFor="hsCode">Percentage(%)</label>
@@ -309,7 +293,6 @@ export default class Dashboard extends React.Component {
                   id="percentage" 
                   name="percentage" 
                   value={this.state.percentage}
-                  // onChange={this.onChange}
                   onChange= {(value) => this.onChange('percentage', value)}
                   required 
                 />
@@ -323,7 +306,8 @@ export default class Dashboard extends React.Component {
                   value={this.state.hs_code}
                   onChange= {(value) => this.onChange('hs_code', value)}
                   required 
-                  disabled />
+                  disabled
+                />
               </div>
               <div className="form-group col-sm-6">
                 <label htmlFor="materialType">Type</label>
@@ -331,7 +315,8 @@ export default class Dashboard extends React.Component {
                   name="materialType" 
                   value={this.state.materialType}
                   onChange= {(value) => this.onChange('materialType', value)}
-                  id="materialType">
+                  id="materialType"
+                >
                   <option>Raw Material</option>
                   <option>Non-Raw Material</option>
                 </select>
@@ -354,7 +339,8 @@ export default class Dashboard extends React.Component {
                   name="item_detail" 
                   value={this.state.item_detail}
                   onChange= {(value) => this.onChange('item_detail', value)}
-                  required />
+                  required
+                />
               </div>
               <button type="submit"
                 className="btn btn-primary"

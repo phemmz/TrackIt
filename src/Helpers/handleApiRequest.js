@@ -18,7 +18,6 @@ export async function postPfiForm(pfiForm) {
     
     return responseJSON;
   } catch (error) {
-    console.log(error, 'error');
   } 
 }
 
@@ -34,9 +33,8 @@ export async function getAllShipments() {
     });
 
     const responseJSON = await response.json();
-    console.log(responseJSON, ' dsRe')
+
     return responseJSON;
   } catch (error) {
-    console.log(error, 'error');
   } 
 }

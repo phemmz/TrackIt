@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 export default function SideNav() {
   return (
     <div className="side__nav">
@@ -6,11 +9,11 @@ export default function SideNav() {
       </Link>
       <hr />
       <div>
-        <Link to="/dashboard" data-tip="Add Shipment"><i className="far fa-plus-square" style={pathname === '/dashboard' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
+        <Link to="/dashboard" data-tip="Add Shipment"><i className="far fa-plus-square"></i></Link>
       </div>
       <hr />
       <div>
-        <Link to="/view-shipment" data-tip="View All Shipments"><i className="fas fa-shipping-fast" style={pathname === '/shipments' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
+        <Link to="/view-shipment" data-tip="View All Shipments"><i className="fas fa-shipping-fast"></i></Link>
       </div>
       <hr />
       <div>

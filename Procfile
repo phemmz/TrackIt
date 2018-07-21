@@ -1,1 +1,0 @@
-web: npm run prod-build && node server.js
