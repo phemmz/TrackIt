@@ -216,8 +216,8 @@ export default class Dashboard extends React.Component {
         <div className="add__shipment__card">
           <h4 className="text-center">Add New Shipment</h4>
           <div className="add__shipment__form">
-            <form className="upload__pfi__section__form" onSubmit={this.handleSubmitData}>
-              <div className="form-group custom-file">
+            <form className="upload__pfi__section__form row" onSubmit={this.handleSubmitData}>
+              <div className="form-group custom-file col-sm-12">
                 <input
                   type="file"
                   className="custom-file-input upload__pfi__section"
@@ -226,7 +226,7 @@ export default class Dashboard extends React.Component {
                 />
                 <label className="custom-file-label" htmlFor="customFile">Upload PFI</label>
               </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="pfiNumber">PFI Number</label>
                 <input type="text" className="form-control" 
                   id="pfiNumber" 
@@ -236,7 +236,7 @@ export default class Dashboard extends React.Component {
                   required 
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="suplierName">Suplier Name</label>
                 <input type="text" 
                   className="form-control" 
@@ -247,7 +247,7 @@ export default class Dashboard extends React.Component {
                   required 
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="pfiQuantity">Quantity</label>
                 <input
                   type="number"
@@ -260,7 +260,7 @@ export default class Dashboard extends React.Component {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="pfiCost">Cost($)</label>
                 <input
                   type="number"
@@ -272,7 +272,7 @@ export default class Dashboard extends React.Component {
                   onChange= {(value) => this.onChange('cost', value)}
                   required />
               </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="hsCode">Percentage(%)</label>
                 <input type="text" 
                   className="form-control" 
@@ -284,7 +284,7 @@ export default class Dashboard extends React.Component {
                   required 
                 />
               </div>
-              <div className="form-group ">
+              <div className="form-group col-sm-6">
                 <label htmlFor="hsCode">HS Code($)</label>
                 <input type="number" 
                   className="form-control" 
@@ -295,27 +295,7 @@ export default class Dashboard extends React.Component {
                   required 
                   disabled />
               </div>
-              <div className="form-group ">
-                <label htmlFor="unitCode">Unit Cost($)</label>
-                <input type="text"
-                   className="form-control" 
-                   id="unitCost"
-                   name="unit" 
-                   value={this.state.unit}
-                   required 
-                   disabled />
-              </div>
-              <div className="form-group">
-                <label htmlFor="itemsDetails">Items Details</label>
-                <input type="text" 
-                  className="form-control" 
-                  id="itemsDetails"
-                  name="item_detail" 
-                  value={this.state.item_detail}
-                  onChange= {(value) => this.onChange('item_detail', value)}
-                  required />
-              </div>
-              <div className="form-group">
+              <div className="form-group col-sm-6">
                 <label htmlFor="materialType">Type</label>
                 <select className="form-control"
                   name="materialType" 
@@ -325,6 +305,26 @@ export default class Dashboard extends React.Component {
                   <option>Raw Material</option>
                   <option>Non-Raw Material</option>
                 </select>
+              </div>
+              <div className="form-group col-sm-6">
+                <label htmlFor="unitCode">Unit Cost($)</label>
+                <input type="text"
+                   className="form-control" 
+                   id="unitCost"
+                   name="unit" 
+                   value={this.state.unit}
+                   required 
+                   disabled />
+              </div>
+              <div className="form-group col-sm-12">
+                <label htmlFor="itemsDetails">Items Details</label>
+                <input type="text" 
+                  className="form-control" 
+                  id="itemsDetails"
+                  name="item_detail" 
+                  value={this.state.item_detail}
+                  onChange= {(value) => this.onChange('item_detail', value)}
+                  required />
               </div>
               <button type="submit"
                 className="btn btn-primary"
