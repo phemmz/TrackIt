@@ -20,6 +20,7 @@ export class LandingPage extends Component {
         this.setState({ [e.target.name]: e.target.value });
       }
     onhandleSubmit = () => {
+        console.log('helllooooooooooo')
         Axios.post('https://unilever-track-it.herokuapp.com/api/v1/login', this.state)
         .then((response)=>{
            if(response.data.auth_token){
