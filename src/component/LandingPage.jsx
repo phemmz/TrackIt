@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{Component} from 'react';
 import logo from '../assert/unilever-logo.png';
 import { Link } from 'react-router-dom'
 import { LoginComponent } from './LoginComponent';
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/userAction'
 
 // const logo = require('../assert/unilever-logo.png')
 export const LandingPage = () => (
