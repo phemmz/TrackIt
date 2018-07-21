@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import 'babel-polyfill';
+
 import { App } from './App';
 import configureStore from './store/store';
 import './styles/main.scss';

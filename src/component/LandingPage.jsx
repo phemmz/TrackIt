@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import { loginUser } from '../actions/userAction';
 import decodeToken from '../helper/decodeToken';
 
+import PropTypes from 'prop-types';
+
 // const logo = require('../assert/unilever-logo.png')
-export class LandingPage extends Component {
+class LandingPage extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -33,9 +35,11 @@ export class LandingPage extends Component {
     }
 
     onChange =(e) => {
-        this.setState({ [e.target.name]: e.target.value });
-      }
-    onhandleSubmit = () => {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onhandleSubmit = (e) => {
+        e.preventDefault();
         this.setState({
           isLoggingIn: true,
         });
@@ -43,7 +47,8 @@ export class LandingPage extends Component {
         .then((response)=>{
            if(response.data.auth_token){
             localStorage.setItem('auth_token', response.data.auth_token);
-            window.location.href ='/dashboard';
+            // window.location.href ='/dashboard';
+            this.context.router.history.push(`/shipments/${shipmentId}`);
              this.setState({
                isLoggingIn: false
              });
@@ -78,34 +83,41 @@ export class LandingPage extends Component {
             <div className="col-sm-12 col-md-6 center">
               <img className="center" height="200px" src={logo} />
             </div>
-            <div className="col-sm-12 col-md-6">
+            <form onSubmit={this.onhandleSubmit} className="col-sm-12 col-md-6">
               <div className="form-group">
-              <label>Email address</label>
-              <input type="email" 
+                <label>Email address</label>
+                <input type="email" 
                   className="form-control"
                   name="email"
                   placeholder="Enter email"
                   value={this.state.email} 
                   onChange={this.onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input type="password" 
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input type="password" 
                   name="password"
                   className="form-control" 
                   value={this.state.password} 
                   onChange={this.onChange}
                   placeholder="Password"
-              />
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={()=>this.onhandleSubmit()} disabled={this.state.isLoggingIn}>
-              Login
-            </button>
-          </div>
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-primary" disabled={this.state.isLoggingIn}>
+                Login
+              </button>
+            </form>
         </div>}
       </div>
     )
     }
 }
+
+LandingPage.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
 export default connect(null, {loginUser})(LandingPage);
