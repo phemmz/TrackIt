@@ -206,6 +206,10 @@ export default class Dashboard extends React.Component {
           </div>
           <hr />
           <div>
+            <Link to="/analytics" data-tip="Analytics"><i className="fas fa-chart-line" style={pathname === '/analytics' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
+          </div>
+          <hr />
+          <div>
             <Link to="/shipments" data-tip="View All Shipments"><i className="fas fa-shipping-fast" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
           </div>
           <hr />

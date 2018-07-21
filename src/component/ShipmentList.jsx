@@ -113,6 +113,10 @@ export default class ShipmentList extends Component {
                     </div>
                     <hr />
                     <div>
+                        <Link to="/analytics" data-tip="Analytics"><i className="fas fa-chart-line" style={pathname === '/analytics' ? { color: 'blue' } : { color: 'grey'}}></i></Link>
+                    </div>
+                    <hr />
+                    <div>
                         <a><i className="fa fa-bell" aria-hidden="true"></i></a>
                     </div>
                 </div>

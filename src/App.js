@@ -5,6 +5,7 @@ import LandingPage from './component/LandingPage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import ShipmentList from './component/ShipmentList';
 import ShipmentDetails from './component/ShipmentDetails';
+import Analytics from './component/Analytics';
 
 
 export const App = () => (
@@ -14,6 +15,7 @@ export const App = () => (
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/shipments' component={ShipmentList} />
         <Route exact path='/shipments/:shipmentId' component={ShipmentDetails} />
+        <Route exact path='/analytics' component={Analytics} />
       </Switch>
     </Router>
 );
