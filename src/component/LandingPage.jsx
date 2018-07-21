@@ -5,18 +5,16 @@ import { LoginComponent } from './LoginComponent';
 
 // const logo = require('../assert/unilever-logo.png')
 export const LandingPage = () => (
-    <div className="container">
-    <div className="row ">
-      <div className="col-sm col-md-3 offset-md-5 ">
-      <div className="row justify-content-center">
-      <div className="col-sm col-md-3 logo" >
-      <img src={logo}/>
+  <div className="container">
+    <div className="row landing">
+      <div className="col-sm-12 col-md-6 center">
+        <img className="center" height="200px" src={logo} />
       </div>
-       
-      </div>
+
+      <div className="col-sm-12 col-md-6">
         <div className="form-group">
-            <label>Email address</label>
-            <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="Enter email"/>
+          <label>Email address</label>
+          <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="Enter email"/>
         </div>
         <div className="form-group">
             <label>Password</label>
