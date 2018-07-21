@@ -18,23 +18,25 @@ export default class Dashboard extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      item_detail:'',
+      item_detail: '',
       materialType: 'Raw Material',
-      url:'',
+      url: '',
       quantity: '',
-      percentage:'',
-      unit:'',
-      cost:'',
-      hs_code:'',
-      pfi_number:'',
-      supplier_name:'',
+      percentage: '',
+      unit: '',
+      cost: '',
+      hs_code: '',
+      pfi_number: '',
+      supplier_name: '',
       fileUrl: ''
-    }
+    };
+
     cloudinary.config({
-      api_key: process.env.CLOUDINARY_KEY,
-      api_secret: process.env.CLOUDINARY_SECRET,
-      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.REACT_APP_CLOUDINARY_KEY,
+      api_secret: process.env.REACT_APP_CLOUDINARY_SECRET,
+      cloud_name: process.env.REACT_APP_CLOUDINARY_NAME,
     });
     this.onsignout = this.onsignout.bind(this)
   }
@@ -72,14 +74,16 @@ export default class Dashboard extends React.Component {
       item_detail,
       type: materialType,
       url: fileUrl,
-      quantity,
-      cost,
-      hs_code,
+      quantity: parseInt(quantity, 10),
+      cost: parseInt(cost, 10),
+      hs_code: parseInt(hs_code, 10),
       supplier_name,
       pfi_number,
       hscode_percentage,
       unit_cost
     };
+
+    console.log(pfiForm, ' pfiForm')
 
     await postPfiForm(pfiForm);
   }
@@ -176,6 +180,8 @@ export default class Dashboard extends React.Component {
       let cost = parseInt(this.state.cost, 10);
       let per = parseInt(this.state.percentage, 10) / 100;
 
+      console.log(cost, ' cost', per)
+
       let hsCode = cost * per;
 
       this.setState({
@@ -186,6 +192,7 @@ export default class Dashboard extends React.Component {
 
       this.setState({
         unit: unitCost,
+        cost: e.target.value,
       });
     }
   
@@ -197,6 +204,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { pathname } = this.props.location;
+    console.log(this.state.cost, ' cost')
 
     return (
       <div className="dasboard__container">
@@ -288,7 +296,8 @@ export default class Dashboard extends React.Component {
               </div>
               <div className="form-group col-sm-6">
                 <label htmlFor="hsCode">Percentage(%)</label>
-                <input type="text" 
+                <input
+                  type="text" 
                   className="form-control" 
                   id="percentage" 
                   name="percentage" 
