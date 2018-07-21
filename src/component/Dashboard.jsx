@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 import * as cloudinary from 'cloudinary';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,8 @@ const PDFJS = require('pdfjs-dist');
 import ReactTooltip from 'react-tooltip';
 
 import SideNav from './SideNav'
+
+import { postPfiForm } from '../Helpers/handleApiRequest';
 
 export default class Dashboard extends React.Component {
 
@@ -15,15 +18,51 @@ export default class Dashboard extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      item_detail:'',
+      materialType: 'Raw Material',
+      url:'',
+      quantity: '',
+      percentage:'',
+      unit:'',
+      cost:'',
+      hs_code:'',
+      pfi_number:'',
+      supplier_name:'',
+      fileUrl: ''
+    }
     cloudinary.config({
       api_key: process.env.CLOUDINARY_KEY,
       api_secret: process.env.CLOUDINARY_SECRET,
       cloud_name: process.env.CLOUDINARY_NAME,
     });
   }
-
   callbackAllDone = (fullText) => {
     console.log(fullText, ' fuuuuuullltext')
+  }
+
+  handleSubmitData = async (e) => {
+    e.preventDefault();
+    console.log(this.state, 'eee', e)
+    const { item_detail, materialType, quantity, cost, hs_code, supplier_name, pfi_number, hscode_percentage, unit_cost, fileUrl }
+      = this.state;
+
+    const pfiForm = {
+      item_detail,
+      type: materialType,
+      // url: fileUrl,
+      url: 'fileUrl',
+      quantity,
+      cost,
+      hs_code,
+      supplier_name,
+      pfi_number,
+      hscode_percentage,
+      unit_cost
+    };
+
+    const response = await postPfiForm(pfiForm);
+    console.log(response, ' resssss')
   }
 
   callbackPageDone = (complete, total) => {
@@ -104,21 +143,18 @@ export default class Dashboard extends React.Component {
       cloudinary.v2.uploader.upload(result.target.result, (error, response) => {
         if (!error) {
           console.log(response)
-          // this.setState({
-          //   filePublicId: response.public_id,
-          //   fileUrl: response.secure_url,
-          //   showFile: true,
-          //   uploading: false,
-          // });
+          this.setState({
+            fileUrl: response.secure_url,
+          });
           // this.handleCallback();
           return true;
         }
 
-        this.setState({
-          message: error.message,
-          showMessage: true,
-          uploading: false,
-        });
+        // this.setState({
+        //   message: error.message,
+        //   showMessage: true,
+        //   uploading: false,
+        // });
         return false;
       });
     }
@@ -127,6 +163,33 @@ export default class Dashboard extends React.Component {
   handleInputChange = () => {
     console.log('hhhh')
   }
+
+  onChange =(name, e) => {
+    if (name === 'percentage') {
+      let cost = parseInt(this.state.cost, 10);
+      let per = parseInt(this.state.percentage, 10) / 100;
+
+      let hsCode = cost * per;
+
+      this.setState({
+        hs_code: hsCode,
+      });
+    } else if (name === 'cost') {
+      let unitCost = parseInt(this.state.quantity, 10) / parseInt(this.state.cost, 10);
+      console.log(this.state.quantity, ' uuuuu', typeof unitCost)
+
+      this.setState({
+        unit: unitCost,
+      });
+    }
+  
+    this.setState({ [name]: e.target.value });
+  }
+
+  getSelectValue = (e) => {
+    console.log(e, ' eeee')
+  }  
+
   render() {
     const { pathname } = this.props.location;
 
@@ -153,47 +216,119 @@ export default class Dashboard extends React.Component {
         <div className="add__shipment__card">
           <h4 className="text-center">Add New Shipment</h4>
           <div className="add__shipment__form">
-            <form className="upload__pfi__section__form">
+            <form className="upload__pfi__section__form" onSubmit={this.handleSubmitData}>
               <div className="form-group custom-file">
                 <input
                   type="file"
                   className="custom-file-input upload__pfi__section"
                   id="pfiFile"
                   onChange={this.handleFileUpload}
-                  required
                 />
                 <label className="custom-file-label" htmlFor="customFile">Upload PFI</label>
               </div>
               <div className="form-group">
+                <label htmlFor="pfiNumber">PFI Number</label>
+                <input type="text" className="form-control" 
+                  id="pfiNumber" 
+                  name="pfi_number" 
+                  value={this.state.pfi_number}
+                  onChange= {(value) => this.onChange('pfi_number', value)}
+                  required 
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="suplierName">Suplier Name</label>
+                <input type="text" 
+                  className="form-control" 
+                  id="suplierName"
+                  name="supplier_name" 
+                  value={this.state.supplier_name}
+                  onChange= {(value) => this.onChange('supplier_name', value)}
+                  required 
+                />
+              </div>
+              <div className="form-group">
                 <label htmlFor="pfiQuantity">Quantity</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="pfiQuantity"
-                  onChange={this.handleInputChange}
+                  name="quantity" 
+                  value={this.state.quantity}
+                  min="1"
+                  onChange= {(value) => this.onChange('quantity', value)}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="pfiCost">Cost</label>
-                <input type="text" className="form-control" id="pfiCost" required />
+                <label htmlFor="pfiCost">Cost($)</label>
+                <input
+                  type="number"
+                  className="form-control" 
+                  id="pfiCost"
+                  name="cost"
+                  min="0"
+                  value={this.state.cost}
+                  onChange= {(value) => this.onChange('cost', value)}
+                  required />
               </div>
               <div className="form-group">
-                <label htmlFor="hsCode">HS Code</label>
-                <input type="text" className="form-control" id="hsCode" required />
+                <label htmlFor="hsCode">Percentage(%)</label>
+                <input type="text" 
+                  className="form-control" 
+                  id="percentage" 
+                  name="percentage" 
+                  value={this.state.percentage}
+                  // onChange={this.onChange}
+                  onChange= {(value) => this.onChange('percentage', value)}
+                  required 
+                />
+              </div>
+              <div className="form-group ">
+                <label htmlFor="hsCode">HS Code($)</label>
+                <input type="number" 
+                  className="form-control" 
+                  id="hsCode"
+                  name="hs_code" 
+                  value={this.state.hs_code}
+                  onChange= {(value) => this.onChange('hs_code', value)}
+                  required 
+                  disabled />
+              </div>
+              <div className="form-group ">
+                <label htmlFor="unitCode">Unit Cost($)</label>
+                <input type="text"
+                   className="form-control" 
+                   id="unitCost"
+                   name="unit" 
+                   value={this.state.unit}
+                   required 
+                   disabled />
               </div>
               <div className="form-group">
                 <label htmlFor="itemsDetails">Items Details</label>
-                <input type="text" className="form-control" id="itemsDetails" required />
+                <input type="text" 
+                  className="form-control" 
+                  id="itemsDetails"
+                  name="item_detail" 
+                  value={this.state.item_detail}
+                  onChange= {(value) => this.onChange('item_detail', value)}
+                  required />
               </div>
               <div className="form-group">
                 <label htmlFor="materialType">Type</label>
-                <select className="form-control" id="materialType">
+                <select className="form-control"
+                  name="materialType" 
+                  value={this.state.materialType}
+                  onChange= {(value) => this.onChange('materialType', value)}
+                  id="materialType">
                   <option>Raw Material</option>
                   <option>Non-Raw Material</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-primary">Save PFI</button>
+              <button type="submit"
+                className="btn btn-primary"
+              >Save PFI</button>
             </form>
           </div>
         </div>

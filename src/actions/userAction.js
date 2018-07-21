@@ -13,7 +13,7 @@ return dispatch => Axios.post('https://unilever-track-it.herokuapp.com/api/v1/lo
     if(response==='unauthorize'){
         localStorage.setItem('error', 'unauthorize')   
     }
-    localStorage.setItem('auth_token', response.data.auth_token)    
+    localStorage.setItem('auth_token', response.data.auth_token)
         return dispatch(decodedToken(response))
         window.location.href ='/dashboard'
 })
