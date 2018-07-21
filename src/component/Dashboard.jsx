@@ -5,6 +5,7 @@ import * as cloudinary from 'cloudinary';
 import { Link } from 'react-router-dom';
 const PDFJS = require('pdfjs-dist');
 import ReactTooltip from 'react-tooltip';
+import decodeToken from '../helper/decodeToken';
 
 import SideNav from './SideNav'
 
@@ -37,6 +38,20 @@ export default class Dashboard extends React.Component {
       cloud_name: process.env.CLOUDINARY_NAME,
     });
   }
+
+  componentDidMount() {
+    const auth_token = localStorage.getItem('auth_token');
+    const decodedToken = decodeToken({
+      data: {
+        auth_token
+      }
+    });
+
+    if (decodedToken === 'unauthorised') {
+      this.props.history.push('/');
+    }
+  }
+
   callbackAllDone = (fullText) => {
     console.log(fullText, ' fuuuuuullltext')
   }

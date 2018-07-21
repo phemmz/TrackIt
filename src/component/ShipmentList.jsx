@@ -1,98 +1,52 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import ReactTooltip from 'react-tooltip';
+import Loader from 'react-loader';
 
-export default class ShipmentList extends Component {
+import { getAllShipments } from '../Helpers/handleApiRequest';
+
+class ShipmentList extends Component {
 
     state = {
-        shipmentlist: [{
-            id:'6575447585',
-            pfNumber: 'HJ45',
-            name: 'cloth',
-            shipmentDate: 'Incomplete'
-
-        },
-        {
-            id:'657574585',
-            pfNumber: 'HJ45',
-            name: 'Toothpaste',
-            shipmentDate: 'Completed'
-
-        },
-        {
-            id:'65757567hh',
-            pfNumber: 'HJ45',
-            name: 'mass',
-            shipmentDate: 'Incomplete'
-
-        },
-        {
-            id:'65757567',
-            pfNumber: 'HJ45',
-            name: 'macppppppss',
-            shipmentDate: 'Completed'
-
-        },{
-            id:'6575as756hh7',
-            No: 'HJ45',
-            name: 'macphhhhpppppss',
-            shipmentDate: 'Completed'
-        },
-        {
-            id:'65f757567hh',
-            pfNumber: 'HJ45',
-            name: 'mass',
-            shipmentDate: 'Incomplete'
-
-        },
-        {
-            id:'65asx757567',
-            pfNumber: 'HJ45',
-            name: 'macppppppss',
-            shipmentDate: 'Completed'
-
-        },{
-            id:'6575mq7bb56hh7',
-            pfNumber: 'HJ45',
-            name: 'macphhhhpppppss',
-            shipmentDate: 'Completed'
-        },
-        {
-            id:'65757asp567hh',
-            pfNumber: 'HJ45',
-            name: 'mass',
-            shipmentDate: 'Incomplete'
-
-        },
-        {
-            id:'6dd5757567',
-            pfNumber: 'HJ45',
-            name: 'macppppppss',
-            shipmentDate: 'Completed'
-
-        },{
-            id:'657576656hh7',
-            pfNumber: 'HJ45',
-            name: 'macphhhhpppppss',
-            shipmentDate: 'Completed'
-        }
-    ]
+        shipmentLists: [],
+        loaded: false,
+        errors: {}
     }
+
+    async componentDidMount() {
+        this.setState({ loaded: true });
+        const response = await getAllShipments();
+
+        if (response.status === 'success') {
+            this.setState({
+                shipmentLists: response.data,
+                loaded: false,
+            });
+        } else {
+            this.setState({
+                errors: 'Couldnt load all shipments, Please try again',
+                loaded: false,
+            });
+        }
+    }
+
+    navigateToShipmentId = (shipmentId) => {
+        this.context.router.history.push(`/shipments/${shipmentId}`);
+    }
+
     render() {
         const { pathname } = this.props.location;
-        const displayShipments = this.state.shipmentlist.map((shipment, index) => {
+        const { shipmentLists } = this.state;
+
+        const displayShipments = shipmentLists.map((shipment, index) => {
             return (
-                <div key={shipment.id} className="col-sm shipmentCard">
-                    <div>
-                        <p><strong>PF Number:</strong> {shipment.pfNumber}</p>
-                        <p><strong>Supplier Name:</strong> {shipment.name}</p>
-                        <p><strong>Shipment Date:</strong> {shipment.shipmentDate}</p>
-                    </div>
-                    <div>
-                        <Link to={`/shipments/${shipment.id}`}><button className="btn btn-outline-primary shipmentCardbtn">Get Details</button></Link>
-                    </div>
-                </div>
+                <tr key={shipment.id} className="shipmentRow" onClick={() => this.navigateToShipmentId(shipment.id)}>
+                    <td>{shipment.pfi.supplier_name}</td>
+                    <td>{shipment.pfi.pfi_number}</td>
+                    <td></td>
+                </tr>
             );
         });
 
@@ -120,35 +74,67 @@ export default class ShipmentList extends Component {
                         <a><i className="fa fa-bell" aria-hidden="true"></i></a>
                     </div>
                 </div>
-                <div>
-                    <div className="my-search-container">
-                        <div className="my-form-wrapper form-group">
-                            <div>
-                                <input id="search-input" type="text" placeholder="Search here..." required />
-                                <button type="submit" className="btn btn-primary">Search</button>
+                {
+                    this.state.loaded ?
+                        <div className="circle">
+                            <div className="circle1 child"></div>
+                            <div className="circle2 child"></div>
+                            <div className="circle3 child"></div>
+                            <div className="circle4 child"></div>
+                            <div className="circle5 child"></div>
+                            <div className="circle6 child"></div>
+                            <div className="circle7 child"></div>
+                            <div className="circle8 child"></div>
+                            <div className="circle9 child"></div>
+                            <div className="circle10 child"></div>
+                            <div className="circle11 child"></div>
+                            <div className="circle12 child"></div>
+                        </div> :
+                        <div className="table__section">
+                            <div className="my-search-container">
+                                <div className="my-form-wrapper form-group">
+                                    <div>
+                                        <input id="search-input" type="text" placeholder="Search here..." required />
+                                        <button type="submit" className="btn btn-primary">Search</button>
+                                    </div>
+                                    <div>
+                                        <div className="form-group form-check">
+                                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                            <label className="form-check-label" htmlFor="exampleCheck1">PFI Number</label>
+                                        </div>
+                                        <div className="form-group form-check">
+                                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                            <label className="form-check-label" htmlFor="exampleCheck1">Supplier Name</label>
+                                        </div>
+                                        <div className="form-group form-check">
+                                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                            <label className="form-check-label" htmlFor="exampleCheck1">Shipment Date</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="form-group form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label className="form-check-label" htmlFor="exampleCheck1">PFI Number</label>
-                                </div>
-                                <div className="form-group form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label className="form-check-label" htmlFor="exampleCheck1">Supplier Name</label>
-                                </div>
-                                <div className="form-group form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label className="form-check-label" htmlFor="exampleCheck1">Shipment Date</label>
-                                </div>
-                            </div>
+                            <table className="table my__table">
+                                <thead >
+                                    <tr>
+                                        <th scope="col">Supplier Name</th>
+                                        <th scope="col">PF Number</th>
+                                        <th scope="col">Shipment Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {displayShipments}
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                    <div className="shipment-list">
-                        {displayShipments}
-                    </div>
-                </div>
-                <div />
+                }
+                    <div />
             </div>
         );
     }
 }
+
+ShipmentList.contextTypes = {
+    router: PropTypes.object.isRequired
+}
+
+export default ShipmentList;

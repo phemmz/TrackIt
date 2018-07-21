@@ -7,7 +7,6 @@ import ShipmentList from './component/ShipmentList';
 import ShipmentDetails from './component/ShipmentDetails';
 import Analytics from './component/Analytics';
 
-
 export const App = () => (
     <Router>
       <Switch>

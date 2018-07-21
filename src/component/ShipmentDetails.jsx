@@ -3,7 +3,23 @@ import { Link } from 'react-router-dom';
 
 import ReactTooltip from 'react-tooltip';
 
+import decodeToken from '../helper/decodeToken';
+
 export default class ShipmentDetails extends Component {
+
+  componentDidMount() {
+    const auth_token = localStorage.getItem('auth_token');
+    const decodedToken = decodeToken({
+      data: {
+        auth_token
+      }
+    });
+
+    if (decodedToken === 'unauthorised') {
+      this.props.history.push('/');
+    }
+  }
+
     render() {
       return (
         <div className="shipment__container">
