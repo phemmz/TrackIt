@@ -5,22 +5,25 @@ body {
 
 .dasboard__container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.top__section {
+.side__nav {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  height: 5rem;
-  width: 100vw;
+  flex-direction: column;
+  // justify-content: flex-end;
+  // align-items: flex-end;
+  height: 100vh;
+  width: 6rem;
   // background-color: green;
   box-shadow: 0 4px 8px -4px rgba(0,0,0,.1);
-  border-bottom: #dadce0 1px solid;
+  border: #dadce0 1px solid;
+  padding: 1rem;
 
   a {
+    height: 8rem;
     margin-right: 2rem;
     margin-bottom: 1rem;
   }
@@ -35,18 +38,18 @@ body {
 }
 
 .add__shipment__card {
-  height: 30rem;
   width: 35rem;
-  margin-top: 5rem;
   // box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
   box-shadow: 0 4px 8px -4px rgba(0,0,0,.1);
   border: #dadce0 1px solid;
+  overflow: auto;
+  padding: 2rem;
 
+  h4 {
+  }
 }
 
-.upload__pfi__section {
-  display: flex;
-  margin: 2rem 0 0 2rem;
+.add__shipment__form {
 }
 
 .logo {
@@ -54,8 +57,25 @@ body {
     margin-top: 20%;
     margin-bottom: 20%;
 
-    img{
+    img {
         width: 130%;
         padding: auto ;
     }
+}
+
+.upload__pfi__section {
+  display: flex;
+}
+
+.upload__pfi__section__form {
+
+  div:first-child {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
