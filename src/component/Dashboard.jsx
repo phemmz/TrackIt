@@ -2,6 +2,7 @@ import React from 'react';
 import * as cloudinary from 'cloudinary';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import toastr from 'toastr';
 
 import decodeToken from '../helper/decodeToken';
 import { postPfiForm } from '../Helpers/handleApiRequest';
@@ -81,7 +82,7 @@ export default class Dashboard extends React.Component {
       supplier_name,
       pfi_number: parseInt(pfi_number, 10),
       hscode_percentage: parseInt(hs_code, 10),
-      unit_cost: parseInt(unit, 10)
+      unit_cost: 5
     };
 
     this.setState({
@@ -90,6 +91,7 @@ export default class Dashboard extends React.Component {
     const response = await postPfiForm(pfiForm);
 
     if (response.status === 'success') {
+      toastr.success('Shipment Added!');
       this.setState({
         item_detail: '',
         url: '',
@@ -102,6 +104,11 @@ export default class Dashboard extends React.Component {
         supplier_name: '',
         fileUrl: '',
         isLoading: false,
+      });
+    } else {
+      toastr.error(response.message, 'Error');
+      this.setState({
+        isLoading: false
       });
     }
   }

@@ -36,6 +36,12 @@ class ShipmentList extends Component {
         this.context.router.history.push(`/shipments/${shipmentId}`);
     }
 
+    onsignout = (event) => {
+        event.preventDefault()
+        localStorage.removeItem('auth_token');
+        this.props.history.push('/')
+      }
+
     render() {
         const { pathname } = this.props.location;
         const { shipmentLists } = this.state;
@@ -71,7 +77,11 @@ class ShipmentList extends Component {
                     </div>
                     <hr />
                     <div>
-                        <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+                        <a><i className="fa fa-bell" aria-hidden="true"></i><div style={{ position: 'relative', top: '-30px', left: '30px', background: 'red', width: '20px', height: '20px', borderRadius: '10px' }}>2</div></a>
+                    </div>
+                    <hr />
+                    <div>
+                        <div onClick={this.onsignout} data-tip="Log Out"><i className="fas fa-sign-out-alt" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></div>
                     </div>
                 </div>
                 {

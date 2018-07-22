@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import configureStore from './store/store';
 import './styles/main.scss';
+import '../node_modules/toastr/build/toastr.css';
 import registerServiceWorker from './registerServiceWorker';
 
 

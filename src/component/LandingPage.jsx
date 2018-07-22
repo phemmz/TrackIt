@@ -1,4 +1,7 @@
 import React,{Component} from 'react';
+
+import toastr from 'toastr';
+
 import logo from '../assert/unilever-logo.png';
 import Axios from 'axios';
 import { LoginComponent } from './LoginComponent';
@@ -15,7 +18,6 @@ class LandingPage extends Component {
       email: '',
       password:'',
       isLoggingIn: false,
-      authError: ''
     }
 
     this.onChange = this.onChange.bind(this);
@@ -50,6 +52,7 @@ class LandingPage extends Component {
     Axios.post('https://unilever-track-it.herokuapp.com/api/v1/login', this.state)
       .then((response) => {
         if (response.data.auth_token) {
+          toastr.error('Login Successful', 'Success');
           localStorage.setItem('auth_token', response.data.auth_token);
 
           window.location.href ='/analytics';
@@ -60,6 +63,8 @@ class LandingPage extends Component {
         }
       })
       .catch((error) => {
+        toastr.error('Wrong Email or Password', 'Error');
+
         this.setState({
           isLoggingIn: false
         });
