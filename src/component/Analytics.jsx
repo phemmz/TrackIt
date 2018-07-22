@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 export default class Analytics extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export default class Analytics extends React.Component {
 
     return (
       <div>
+        <ReactTooltip />
         <div className="side__nav sticky">
           <Link to="/">
             <img height="50px" width="50px" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Unilever.svg/1200px-Unilever.svg.png" />
@@ -35,7 +37,7 @@ export default class Analytics extends React.Component {
           </div>
           <hr />
           <div>
-            <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+            <a><i className="fa fa-bell" aria-hidden="true"></i><div style={{ position: 'relative', top: '-30px', left: '30px', background: 'red', width: '20px', height: '20px', borderRadius: '10px' }}>2</div></a>
           </div>
           <hr />
           <div>
@@ -43,12 +45,12 @@ export default class Analytics extends React.Component {
           </div>
         </div>
 
-        <div className="container">
+        <div className="container" style={{ marginRight: '3rem' }}>
           <h4 className="ana-home"><strong>Hi There,</strong></h4>
 
           <div className="row">
             <div className="col-sm-3">
-              <div className="card">
+              <div className="card" style={{ height: '8rem' }}>
                 <div className="card-body">
                   <h5 className="card-title">$50,000</h5>
                   <p className="card-text">Total Demorage Cost Paid</p>
@@ -56,26 +58,26 @@ export default class Analytics extends React.Component {
               </div>
             </div>
             <div className="col-sm-3">
-              <div className="card">
+              <div className="card" style={{ height: '8rem' }}>
                 <div className="card-body">
-                  <h5 className="card-title">$500,000</h5>
-                  <p className="card-text">Total Demorage Cost Unpaid</p>
+                  <h5 className="card-title">100 Containers</h5>
+                  <p className="card-text">Total Consignments Uncleared</p>
                 </div>
               </div>
             </div>
             <div className="col-sm-3">
-              <div className="card">
+              <div className="card" style={{ height: '8rem' }}>
                 <div className="card-body">
-                 <h5 className="card-title">$500,000</h5>
-                  <p className="card-text">Total Demorage Cost Unpaid</p>
+                 <h5 className="card-title">3 Containers</h5>
+                  <p className="card-text">Total Consignments On Transit <br /><Link to="/">View</Link></p>
                 </div>
               </div>
             </div>
             <div className="col-sm-3">
-              <div className="card">
+              <div className="card" style={{ height: '8rem' }}>
                 <div className="card-body">
-                  <h5 className="card-title">$500,000</h5>
-                  <p className="card-text">Total Demorage Cost Unpaid</p>
+                  <h5 className="card-title">10</h5>
+                  <p className="card-text">Consignments with Incomplete Documentation <Link to="/">View</Link></p>
                 </div>
               </div>
             </div>

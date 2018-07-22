@@ -14,7 +14,8 @@ class LandingPage extends Component {
     this.state = {
       email: '',
       password:'',
-      isLoggingIn: false
+      isLoggingIn: false,
+      authError: ''
     }
 
     this.onChange = this.onChange.bind(this);
@@ -51,7 +52,7 @@ class LandingPage extends Component {
         if (response.data.auth_token) {
           localStorage.setItem('auth_token', response.data.auth_token);
 
-          window.location.href ='/dashboard';
+          window.location.href ='/analytics';
 
           this.setState({
             isLoggingIn: false
@@ -68,23 +69,10 @@ class LandingPage extends Component {
   }
 
   render() {
+    const { isLoggingIn } = this.state;
+
     return (
       <div className="container">
-        {this.state.isLoggingIn ?
-          <div className="circle" style={{}}>
-            <div className="circle1 child"></div>
-            <div className="circle2 child"></div>
-            <div className="circle3 child"></div>
-            <div className="circle4 child"></div>
-            <div className="circle5 child"></div>
-            <div className="circle6 child"></div>
-            <div className="circle7 child"></div>
-            <div className="circle8 child"></div>
-            <div className="circle9 child"></div>
-            <div className="circle10 child"></div>
-            <div className="circle11 child"></div>
-            <div className="circle12 child"></div>
-          </div> :
         <div className="row landing">
           <div className="col-sm-12 col-md-6 center">
             <img className="center" height="200px" src={logo} />
@@ -112,12 +100,13 @@ class LandingPage extends Component {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary" disabled={this.state.isLoggingIn}>
-              Login
-            </button>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoggingIn}
+            >{isLoggingIn ? 'Logging In...' : 'Login'}</button>
           </form>
         </div>
-        }
       </div>
     );
   }

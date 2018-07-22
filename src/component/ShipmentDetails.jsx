@@ -54,7 +54,7 @@ export default class ShipmentDetails extends Component {
             </div>
             <hr />
             <div>
-                <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+              <a><i className="fa fa-bell" aria-hidden="true"></i><div style={{ position: 'relative', top: '-30px', left: '30px', background: 'red', width: '20px', height: '20px', borderRadius: '10px' }}>2</div></a>
             </div>
             <hr />
             <div>

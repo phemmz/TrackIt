@@ -153,6 +153,12 @@ module.exports = {
               compact: true,
             },
           },
+          {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+              use: 'css-loader!sass-loader'
+            }),
+          },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -240,6 +246,7 @@ module.exports = {
     // In production, it will be an empty string unless you specify "homepage"
     // in `package.json`, in which case it will be the pathname of that URL.
     new InterpolateHtmlPlugin(env.raw),
+    new ExtractTextPlugin("bundle.css"),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,

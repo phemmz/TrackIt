@@ -31,6 +31,7 @@ export default class Dashboard extends React.Component {
       pfi_number: '',
       supplier_name: '',
       fileUrl: '',
+      isLoading: false
     };
 
     cloudinary.config({
@@ -83,7 +84,26 @@ export default class Dashboard extends React.Component {
       unit_cost: parseInt(unit, 10)
     };
 
-    await postPfiForm(pfiForm);
+    this.setState({
+      isLoading: true,
+    });
+    const response = await postPfiForm(pfiForm);
+
+    if (response.status === 'success') {
+      this.setState({
+        item_detail: '',
+        url: '',
+        quantity: '',
+        percentage: '',
+        unit: '',
+        cost: '',
+        hs_code: '',
+        pfi_number: '',
+        supplier_name: '',
+        fileUrl: '',
+        isLoading: false,
+      });
+    }
   }
 
   callbackPageDone = (complete, total) => {
@@ -203,6 +223,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { pathname } = this.props.location;
+    const { isLoading } = this.state;
 
     return (
       <div className="dasboard__container">
@@ -225,7 +246,7 @@ export default class Dashboard extends React.Component {
           </div>
           <hr />
           <div>
-            <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+            <a><i className="fa fa-bell" aria-hidden="true"></i><div style={{ position: 'relative', top: '-30px', left: '30px', background: 'red', width: '20px', height: '20px', borderRadius: '10px' }}>2</div></a>
           </div>
           <hr />
           <div>
@@ -352,7 +373,8 @@ export default class Dashboard extends React.Component {
               </div>
               <button type="submit"
                 className="btn btn-primary"
-              >Save PFI</button>
+                disabled={isLoading}
+              >{isLoading ? 'Saving...' : 'Save PFI'}</button>
             </form>
           </div>
         </div>
