@@ -37,6 +37,7 @@ export default class Dashboard extends React.Component {
       api_secret: process.env.CLOUDINARY_SECRET,
       cloud_name: process.env.CLOUDINARY_NAME,
     });
+    this.onsignout = this.onsignout.bind(this)
   }
 
   componentDidMount() {
@@ -50,6 +51,12 @@ export default class Dashboard extends React.Component {
     if (decodedToken === 'unauthorised') {
       this.props.history.push('/');
     }
+  }
+
+  onsignout(event) {
+    event.preventDefault()
+    localStorage.removeItem('auth_token');
+    this.props.history.push('/')
   }
 
   callbackAllDone = (fullText) => {
@@ -230,6 +237,10 @@ export default class Dashboard extends React.Component {
           <hr />
           <div>
             <a><i className="fa fa-bell" aria-hidden="true"></i></a>
+          </div>
+          <hr />
+          <div>
+            <div onClick={this.onsignout} data-tip="Log Out"><i className="fas fa-sign-out-alt" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></div>
           </div>
         </div>
         <div className="add__shipment__card">

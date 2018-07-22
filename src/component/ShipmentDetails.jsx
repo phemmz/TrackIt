@@ -6,6 +6,11 @@ import ReactTooltip from 'react-tooltip';
 import decodeToken from '../helper/decodeToken';
 
 export default class ShipmentDetails extends Component {
+  constructor(props){
+    super(props)
+
+    this.onsignout = this.onsignout.bind(this)
+  }
 
   componentDidMount() {
     const auth_token = localStorage.getItem('auth_token');
@@ -20,7 +25,14 @@ export default class ShipmentDetails extends Component {
     }
   }
 
+  onsignout(event) {
+    event.preventDefault()
+    localStorage.removeItem('auth_token');
+    this.props.history.push('/')
+  }
+
     render() {
+      const { pathname } = this.props.location;
       return (
         <div className="shipment__container">
           <ReactTooltip />
@@ -44,11 +56,15 @@ export default class ShipmentDetails extends Component {
             <div>
                 <a><i className="fa fa-bell" aria-hidden="true"></i></a>
             </div>
+            <hr />
+            <div>
+                <div onClick={this.onsignout} data-tip="Log Out"><i className="fas fa-sign-out-alt" style={pathname === '/view-shipment' ? { color: 'blue' } : { color: 'grey'}}></i></div>
+            </div>
           </div>
           <div className="m-content leave-sticky center">
             <div class="container">
-              <div class="page-header">
-                <h2><strong>Shipment Detail</strong></h2>
+              <div class="page-header ana-space-top">
+                <h2><strong>Shipment Detail & Timeline</strong></h2>
               </div>
               <ul class="timeline">
                   <li className="">
@@ -71,7 +87,7 @@ export default class ShipmentDetails extends Component {
                       <div class="timeline-body">
                         <p> <input type='checkbox' /> Letter of Credit</p>
                         <p> <input type='checkbox' /> Insurance</p>
-                        <p className="update clickable">Update</p>
+                        <p onClick={this.openModal} className="update clickable">Update</p>
                       </div>
                     </div>
                   </li>
@@ -106,9 +122,10 @@ export default class ShipmentDetails extends Component {
                     <div class="timeline-panel">
                       <div class="timeline-heading">
                         <h4 class="timeline-title">Container Arrival</h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
                       </div>
                       <div class="timeline-body">
-                        <p>- Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis</p>
+                        <p>- Expected time this current shipment should be at the port. All the necessary documents should be ready by now.</p>
                       </div>
                     </div>
                   </li>
