@@ -62,29 +62,29 @@ export default class ShipmentDetails extends Component {
             </div>
           </div>
           <div className="m-content leave-sticky center">
-            <div class="container">
-              <div class="page-header ana-space-top">
+            <div className="container">
+              <div className="page-header ana-space-top">
                 <h2><strong>Shipment Detail & Timeline</strong></h2>
               </div>
-              <ul class="timeline">
+              <ul className="timeline">
                   <li className="">
-                    <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
-                    <div class="timeline-panel">
-                      <div class="timeline-heading">
-                        <h4 class="timeline-title">Performance Invoice (PFI)</h4>
-                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
+                    <div className="timeline-badge success"><i className="glyphicon glyphicon-check"></i></div>
+                    <div className="timeline-panel">
+                      <div className="timeline-heading">
+                        <h4 className="timeline-title">Performance Invoice (PFI)</h4>
+                        <p><small className="text-muted"><i className="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
                         <p className="update clickable">Update</p>
                       </div>
                     </div>
                   </li>
-                  <li class="timeline-inverted">
-                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
-                    <div class="timeline-panel">
-                      <div class="timeline-heading">
-                        <h4 class="timeline-title">Form M</h4>
-                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
+                  <li className="timeline-inverted">
+                    <div className="timeline-badge danger"><i className="glyphicon glyphicon-credit-card"></i></div>
+                    <div className="timeline-panel">
+                      <div className="timeline-heading">
+                        <h4 className="timeline-title">Form M</h4>
+                        <p><small className="text-muted"><i className="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
                       </div>
-                      <div class="timeline-body">
+                      <div className="timeline-body">
                         <p> <input type='checkbox' /> Letter of Credit</p>
                         <p> <input type='checkbox' /> Insurance</p>
                         <p onClick={this.openModal} className="update clickable">Update</p>
@@ -92,24 +92,24 @@ export default class ShipmentDetails extends Component {
                     </div>
                   </li>
                   <li>
-                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
-                    <div class="timeline-panel">
-                      <div class="timeline-heading">
-                        <h4 class="timeline-title">Required Permits</h4>
+                    <div className="timeline-badge danger"><i className="glyphicon glyphicon-credit-card"></i></div>
+                    <div className="timeline-panel">
+                      <div className="timeline-heading">
+                        <h4 className="timeline-title">Required Permits</h4>
                       </div>
-                      <div class="timeline-body">
+                      <div className="timeline-body">
                         <p className="update clickable">Add permits</p>
                       </div>
                     </div>
                   </li>
                   <li className="timeline-inverted">
-                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-floppy-disk"></i></div>
-                    <div class="timeline-panel">
-                      <div class="timeline-heading">
-                        <h4 class="timeline-title">Draft Bill of Lading</h4>
-                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
+                    <div className="timeline-badge danger"><i className="glyphicon glyphicon-floppy-disk"></i></div>
+                    <div className="timeline-panel">
+                      <div className="timeline-heading">
+                        <h4 className="timeline-title">Draft Bill of Lading</h4>
+                        <p><small className="text-muted"><i className="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
                       </div>
-                      <div class="timeline-body">
+                      <div className="timeline-body">
                         <p>- Estimated Date of Departure</p>
                         <p>- Estimated Date of Arrival</p>
                         <p className="update clickable">Update</p>
@@ -117,14 +117,14 @@ export default class ShipmentDetails extends Component {
                       </div>
                     </div>
                   </li>
-                  <li class="timeline">
-                    <div class="timeline-badge danger"><i class="glyphicon glyphicon-thumbs-up"></i></div>
-                    <div class="timeline-panel">
-                      <div class="timeline-heading">
-                        <h4 class="timeline-title">Container Arrival</h4>
-                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
+                  <li className="timeline">
+                    <div className="timeline-badge danger"><i className="glyphicon glyphicon-thumbs-up"></i></div>
+                    <div className="timeline-panel">
+                      <div className="timeline-heading">
+                        <h4 className="timeline-title">Container Arrival</h4>
+                        <p><small className="text-muted"><i className="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
                       </div>
-                      <div class="timeline-body">
+                      <div className="timeline-body">
                         <p>- Expected time this current shipment should be at the port. All the necessary documents should be ready by now.</p>
                       </div>
                     </div>
