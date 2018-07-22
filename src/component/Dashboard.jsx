@@ -30,7 +30,7 @@ export default class Dashboard extends React.Component {
       hs_code: '',
       pfi_number: '',
       supplier_name: '',
-      fileUrl: ''
+      fileUrl: '',
     };
 
     cloudinary.config({
@@ -67,7 +67,7 @@ export default class Dashboard extends React.Component {
     e.preventDefault();
 
     const { item_detail, materialType, quantity, cost,
-      hs_code, supplier_name, pfi_number, hscode_percentage, unit_cost, fileUrl
+      hs_code, supplier_name, pfi_number, hscode_percentage, unit, fileUrl
     } = this.state;
 
     const pfiForm = {
@@ -78,12 +78,10 @@ export default class Dashboard extends React.Component {
       cost: parseInt(cost, 10),
       hs_code: parseInt(hs_code, 10),
       supplier_name,
-      pfi_number,
-      hscode_percentage,
-      unit_cost
+      pfi_number: parseInt(pfi_number, 10),
+      hscode_percentage: parseInt(hs_code, 10),
+      unit_cost: parseInt(unit, 10)
     };
-
-    console.log(pfiForm, ' pfiForm')
 
     await postPfiForm(pfiForm);
   }
@@ -176,23 +174,24 @@ export default class Dashboard extends React.Component {
   }
 
   onChange =(name, e) => {
-    if (name === 'percentage') {
-      let cost = parseInt(this.state.cost, 10);
-      let per = parseInt(this.state.percentage, 10) / 100;
+    const { cost, percentage, quantity } = this.state;
 
-      console.log(cost, ' cost', per)
+    if (cost && percentage) {
+      let parsedCost = parseInt(this.state.cost, 10);
+      let parsedPercentage = parseInt(this.state.percentage, 10) / 100;
 
-      let hsCode = cost * per;
+      let hsCode = parsedCost * parsedPercentage;
 
       this.setState({
         hs_code: hsCode,
       });
-    } else if (name === 'cost') {
+    }
+
+    if (quantity && cost) {
       let unitCost = parseInt(this.state.quantity, 10) / parseInt(this.state.cost, 10);
 
       this.setState({
         unit: unitCost,
-        cost: e.target.value,
       });
     }
   
@@ -204,7 +203,6 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { pathname } = this.props.location;
-    console.log(this.state.cost, ' cost')
 
     return (
       <div className="dasboard__container">
@@ -249,9 +247,10 @@ export default class Dashboard extends React.Component {
               </div>
               <div className="form-group col-sm-6">
                 <label htmlFor="pfiNumber">PFI Number</label>
-                <input type="text" className="form-control" 
+                <input type="number" className="form-control" 
                   id="pfiNumber" 
-                  name="pfi_number" 
+                  name="pfi_number"
+                  min="0" 
                   value={this.state.pfi_number}
                   onChange= {(value) => this.onChange('pfi_number', value)}
                   required 
