@@ -45,13 +45,18 @@ class ShipmentList extends Component {
     render() {
         const { pathname } = this.props.location;
         const { shipmentLists } = this.state;
-
+        const pdate = ["11/05/2017", "11/09/2017","10/15/2017","10/15/2017","08/15/2018","12/15/2017","02/15/2017","05/06/2018"];
         const displayShipments = shipmentLists.map((shipment, index) => {
             return (
                 <tr key={shipment.id} className="shipmentRow" onClick={() => this.navigateToShipmentId(shipment.id)}>
                     <td>{shipment.pfi.supplier_name}</td>
                     <td>{shipment.pfi.pfi_number}</td>
-                    <td></td>
+                    <td>{pdate[index]}</td>
+                    <td><i class="fas fa-pen"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="fas fa-share-alt"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="fas fa-flag"></i>&nbsp;&nbsp;&nbsp;
+                    <i class="fas fa-book"></i>
+                    </td>
                 </tr>
             );
         });
@@ -129,6 +134,7 @@ class ShipmentList extends Component {
                                         <th scope="col">Supplier Name</th>
                                         <th scope="col">PF Number</th>
                                         <th scope="col">Shipment Date</th>
+                                        <th scope="col">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
