@@ -46,7 +46,7 @@ export default class Analytics extends React.Component {
           </div>
         </div>
 
-        <div className="container" style={{ marginRight: '13rem' }}>
+        <div className="container" style={{ marginRight: '3rem' }}>
           <h4 className="ana-home"><strong>Hi There,</strong></h4>
 
           <div className="row">
