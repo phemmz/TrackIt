@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import line_graph from '../assert/line_graph.jpg'
 
 export default class Analytics extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class Analytics extends React.Component {
         <ReactTooltip />
         <div className="side__nav sticky">
           <Link to="/">
-            <img height="50px" width="50px" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Unilever.svg/1200px-Unilever.svg.png" />
+            <img height="50px" width="50px" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Unilever.svg/1200px-Unilever.svg.png" alt="logo" />
           </Link>
           <hr />
           <div>
@@ -45,7 +46,7 @@ export default class Analytics extends React.Component {
           </div>
         </div>
 
-        <div className="container" style={{ marginRight: '3rem' }}>
+        <div className="container" style={{ marginRight: '13rem' }}>
           <h4 className="ana-home"><strong>Hi There,</strong></h4>
 
           <div className="row">
@@ -85,8 +86,8 @@ export default class Analytics extends React.Component {
 
           <div className="row justify-content-center ana-row">
             <div className="col-sm-6">
-              <img src='https://www.jqueryscript.net/images/Simple-Canvas-Based-Line-Chart-Plugin-For-jQuery-Topup.jpg'alt="pie chart"/>
-              <p className="center-text"><strong>Line Graph</strong></p>
+              <img src={line_graph} alt="pie chart"/>
+              <p className="center-text"><strong>Demurrage Charge Graph</strong></p>
             </div>
           </div>
         </div>
