@@ -73,7 +73,7 @@ export default class ShipmentDetails extends Component {
                       <div className="timeline-heading">
                         <h4 className="timeline-title">Performance Invoice (PFI)</h4>
                         <p><small className="text-muted"><i className="glyphicon glyphicon-time"></i><strong>Date:</strong>  01-05-2018</small></p>
-                        <p className="update clickable">Update</p>
+                        <Link to='/update' className="update clickable">Update</Link>
                       </div>
                     </div>
                   </li>
@@ -98,7 +98,9 @@ export default class ShipmentDetails extends Component {
                         <h4 className="timeline-title">Required Permits</h4>
                       </div>
                       <div className="timeline-body">
-                        <p className="update clickable">Add permits</p>
+                      <button type="button" class="btn btn-primary update clickable" data-toggle="modal" data-target="#addpermit">
+                        Add Permit
+                      </button>
                       </div>
                     </div>
                   </li>
@@ -112,8 +114,10 @@ export default class ShipmentDetails extends Component {
                       <div className="timeline-body">
                         <p>- Estimated Date of Departure</p>
                         <p>- Estimated Date of Arrival</p>
-                        <p className="update clickable">Update</p>
-                        <hr />
+                        <button type="button" class="btn btn-primary update clickable" data-toggle="modal" data-target="#addestimate">
+                        update
+                        </button>
+                        
                       </div>
                     </div>
                   </li>
@@ -132,7 +136,51 @@ export default class ShipmentDetails extends Component {
               </ul>
           </div>
           </div>
-
+          <div class="modal fade" id="addpermit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Permit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="file" name="myFile" className="input-file"/>
+              <input type="file" name="myFile" className="input-file"/>
+              <input type="file" name="myFile" className="input-file"/>
+              <input type="file" name="myFile" className="input-file"/>
+              <input type="file" name="myFile" className="input-file"/>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="addestimate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Permit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Estimated Date of Departure:&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" className="input-date"/><br/>
+              <br/>
+              Estimated Date of Arrival: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="myFile" className="input-date"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">update</button>
+            </div>
+          </div>
+        </div>
+      </div>
           </div>
         );
     }
